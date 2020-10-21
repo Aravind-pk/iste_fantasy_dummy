@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <link rel="stylesheet" href="styletest.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="table_con">
+                <table id="selection" border="1">
+                    <tr>
+                        <th>Player</th>
+                        <th>Team</th>
+                        <th>Credit</th>
+                        <th>Select</th>
+                    </tr>
+                        <td>Dhoni</td>
+                        <td>CSK</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    <tr>
+                        <td>faf</td>
+                        <td>CSK</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Curran</td>
+                        <td>CSK</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Watson</td>
+                        <td>CSK</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Jadeja</td>
+                        <td>CSK</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Rohit</td>
+                        <td>MI</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Pollard</td>
+                        <td>MI</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Boult</td>
+                        <td>MI</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Hardik</td>
+                        <td>MI</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Pattinson</td>
+                        <td>MI</td>
+                        <td>9.5</td>
+                        <td><input type="checkbox" name="check_1"></td>
+                    </tr>
+                </table>
+            </div><br>
+            <div class="table_btn">
+                <button onclick="selection_To_selected();"><i class="fa fa-arrow-right"></i></button><br>
+                <button onclick="selected_To_selection();"><i class="fa fa-arrow-left"></i></button><br>
+            </div>
+            <div class="table_con">
+                <table id="selected" border="1">
+                    <tr>
+                        <th>celler</th>
+                        <th>Team</th>
+                        <th>Credit</th>
+                        <th>Select</th>
+                    </tr>
+                </table>
+            </div><br>
+        </div>
+        <script>
+            function selection_To_selected()
+            {
+                var selection = document.getElementById("selection"),
+                    selected = document.getElementById("selected"),
+                    checkboxes = document.getElementsByName("check_1");
+                for(var i = 0; i < checkboxes.length; i++)
+                {
+                    if(checkboxes[i].checked)
+                    {   //create new rows and cells
+                        var newRow = selected.insertRow(selected.length),
+                       
+                            cell1 = newRow.insertCell(0),
+                            cell2 = newRow.insertCell(1),
+                            cell3 = newRow.insertCell(2),
+                            cell4 = newRow.insertCell(3);
+                            
+                        // add values
+                        cell1.innerHTML = selection.rows[i+1].cells[0].innerHTML;
+                        cell2.innerHTML = selection.rows[i+1].cells[1].innerHTML;
+                        cell3.innerHTML = selection.rows[i+1].cells[2].innerHTML;    
+                        cell4.innerHTML = "<input type='checkbox' name='check_2'>";
+                        //remove transferred rows
+                        var index = selection.rows[i+1].rowIndex;
+                        selection.deleteRow(index);
+                        // removing rows causes checkboxes.length to change so we have to decrement value of i
+                        i--;
+                    }
+                }
+            }
+            function selected_To_selection()
+            {
+                var selection = document.getElementById("selection"),
+                    selected = document.getElementById("selected"),
+                    checkboxes = document.getElementsByName("check_2");
+                for(var i =0;i<checkboxes.length;i++)
+                {
+                    if(checkboxes[i].checked)
+                    {   //create new rows and cells
+                        var newRow = selection.insertRow(selection.length),
+                            cell1 = newRow.insertCell(0),
+                            cell2 = newRow.insertCell(1),
+                            cell3 = newRow.insertCell(2),
+                            cell4 = newRow.insertCell(3);
+                        // add values
+                        cell1.innerHTML = selected.rows[i+1].cells[0].innerHTML;
+                        cell2.innerHTML = selected.rows[i+1].cells[1].innerHTML;
+                        cell3.innerHTML = selected.rows[i+1].cells[2].innerHTML;
+                        cell4.innerHTML = "<input type='checkbox' name='check_1'>";
+                        //remove transferred rows
+                        var index = selected.rows[i+1].rowIndex;
+                        selected.deleteRow(index);
+                        // removing rows causes checkboxes.length to change so we have to decrement value of i
+                        i--;
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
