@@ -38,6 +38,9 @@ let players=[
 
 ];
 let myTeam =[];
+const totalCredit =50;
+let remainingCredit = totalCredit;
+let usedCredit =0;
 
 
 
@@ -77,23 +80,27 @@ const setPlayers =()=>{
     playersElement.innerHTML = playersList;
 }
 
-setMyteam();
-setPlayers();
-
-
 
 const addPlayer =(name) =>{
     console.log(name);
     newPlayer = players.find(player => player.name === name);
-    index = players.findIndex(player => player.name === name);
-    
-    myTeam.push(newPlayer);
 
-    if (index > -1) {
-        players.splice(index, 1);
-      }
-    setMyteam();
-    setPlayers();
+    if(remainingCredit >= newPlayer.credit){
+
+        index = players.findIndex(player => player.name === name);
+    
+        myTeam.push(newPlayer);
+    
+        if (index > -1) {
+            players.splice(index, 1);
+          }
+        setMyteam();
+        setPlayers();
+        useCredit(newPlayer);
+
+    }else{alert("inssufficient credits")}
+
+
 }
 const removePlayer =(name) =>{
     console.log(name);
@@ -105,4 +112,33 @@ const removePlayer =(name) =>{
       }
     setMyteam();
     setPlayers();
+    getCredit(newPlayer);
 }
+
+const useCredit =(player) =>{
+    remainingCredit -= player.credit;
+    usedCredit += player.credit;
+    updateCredit();
+}
+const getCredit =(player) =>{
+    remainingCredit += player.credit;
+    usedCredit -= player.credit;
+    updateCredit();
+}
+
+const updateCredit= ()=>{
+    
+    rCreditHtml=`<div> remaining credit :${remainingCredit}</div>`;
+    uCreditHtml=`<div> used credit :${usedCredit}</div>`;
+
+    rCreditElement = document.getElementById("remainingCredit");
+    rCreditElement.innerHTML =rCreditHtml;
+
+    uCreditElement = document.getElementById("usedCredit");
+    uCreditElement.innerHTML =uCreditHtml;
+}
+
+
+setMyteam();
+setPlayers();
+updateCredit();
